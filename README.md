@@ -13,3 +13,17 @@ cd binary_tree_constructor
 cmake .
 make
 ```
+
+You can add more test case by add an array to test.json with pre-order at 0-index and in-order at 1-index. For example, 
+```
+[ [1,2,4,5,3], [4,2,5,1,3] ]
+```
+generates a binary tree like this
+
+```
+        1
+     2     3
+   4   5
+```
+
+
