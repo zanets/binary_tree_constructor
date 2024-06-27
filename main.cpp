@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include <queue>
 
 using json = nlohmann::json;
 
@@ -71,6 +72,24 @@ void get_inorder(Node* root, vector<int>& ret) {
     return;
 }
 
+void get_bfs(Node* root, vector<int>& ret) {
+    if (root == nullptr)
+        return;
+
+    queue<Node*> q;
+    q.push(root);
+    while(q.size() > 0) {
+        Node* n = q.front();
+        q.pop();
+        ret.push_back(n->val);
+        if (n->left)
+            q.push(n->left); 
+        if (n->right)
+            q.push(n->right); 
+    }
+    return; 
+}
+
 void coutVec(vector<int>& vec) {
     for (int& v: vec) {
         cout << v << ", ";
@@ -90,20 +109,17 @@ int main() {
         
         vector<int> ans_preorder = {};
         get_preorder(root, ans_preorder);
+        coutVec(ans_preorder);
         
         vector<int> ans_inorder = {};
         get_inorder(root, ans_inorder);
+        coutVec(ans_inorder);
         
-        if (preorder != ans_preorder || inorder != ans_inorder) {
-            coutVec(preorder);
-            coutVec(ans_preorder);
-            coutVec(inorder);
-            coutVec(ans_inorder);
-            cout << endl;
-        } else {
-            cout << "Pass" << endl;
-        }
+        vector<int> ans_bfs = {};
+        get_bfs(root, ans_bfs);
+        coutVec(ans_bfs);
 
+        cout << endl;
     }
 
 
